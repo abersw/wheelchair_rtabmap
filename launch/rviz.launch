@@ -1,0 +1,7 @@
+<launch>
+
+
+  <!-- urdf xml robot description loaded on the Parameter Server-->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find wheelchair_description)/urdf/wheelchair_model_fixing.urdf'" /> <!--change back to wheelchair_model.urdf for signle lidar-->
+  <node type="rviz" name="rviz" pkg="rviz" />
+</launch>
