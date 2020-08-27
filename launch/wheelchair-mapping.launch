@@ -1,6 +1,7 @@
 <launch>
+  <arg name="use_sim_time" default="false"/>
+  <param if="$(arg use_sim_time)" name="use_sim_time" value="true"/>
   <group ns="rtabmap">
-
     <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync" output="screen">
       <remap from="rgb/image"       to="/zed_node/rgb/image_rect_color"/>
       <remap from="depth/image"     to="/zed_node/depth/depth_registered"/>
