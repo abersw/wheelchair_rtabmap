@@ -25,6 +25,8 @@
 
           <param name="queue_size" type="int" value="10"/>
 
+          <param name="proj_max_ground_height" value="0.2"/>
+
           <!-- RTAB-Map's parameters -->
           <param name="RGBD/AngularUpdate"        type="string" value="0.01"/>
           <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>
