@@ -1,0 +1,43 @@
+<launch>
+  <arg name="use_sim_time" default="false"/>
+  <param if="$(arg use_sim_time)" name="use_sim_time" value="true"/>
+  <group ns="rtabmap">
+    <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync" output="screen">
+      <remap from="rgb/image"       to="/zed_node/rgb/image_rect_color"/>
+      <remap from="depth/image"     to="/zed_node/depth/depth_registered"/>
+      <remap from="rgb/camera_info" to="/zed_node/rgb/camera_info"/>
+      <remap from="rgbd_image"      to="rgbd_image"/> <!-- output -->
+      
+      <!-- Should be true for not synchronized camera topics 
+           (e.g., false for kinectv2, zed, realsense, true for xtion, kinect360)-->
+      <param name="approx_sync"       value="true"/> 
+    </node>
+
+    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
+          <param name="frame_id" type="string" value="zed_camera_center"/>
+
+          <param name="subscribe_depth" type="bool" value="false"/>
+          <param name="subscribe_rgbd" type="bool" value="true"/>
+
+          <remap from="odom" to="/zed_node/odom"/>
+
+          <remap from="rgbd_image" to="rgbd_image"/>
+
+          <param name="queue_size" type="int" value="10"/>
+
+          <!-- RTAB-Map's parameters -->
+          <param name="RGBD/AngularUpdate"        type="string" value="0.01"/>
+          <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>
+          <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
+          <param name="proj_max_ground_height" value="0.2"/>
+
+          <!-- LIDAR scanning parameters -->
+          <param name="Reg/Strategy"              value="1"/>    <!-- 1 for lidar -->
+          <param name="Reg/Force3DoF"             value="true"/> <!-- 2d slam -->
+          <param name="RGBD/NeighborLinkRefining" value="true"/> <!-- odometry correction with scans -->
+
+          <remap from="scan"    to="/scan"/>
+    </node>
+  </group>
+</launch>
+
