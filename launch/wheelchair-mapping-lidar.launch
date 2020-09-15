@@ -30,6 +30,8 @@
           <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>
           <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
           <param name="proj_max_ground_height" value="0.2"/>
+          <param name="Grid/FromDepth"            type="string" value="false"/> <!-- occupancy grid from lidar -->
+          
 
           <!-- LIDAR scanning parameters -->
           <param name="Reg/Strategy"              value="1"/>    <!-- 1 for lidar -->
