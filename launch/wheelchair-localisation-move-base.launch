@@ -4,6 +4,7 @@
     <arg name="localization" value="true"/>
     <arg name="database_path"     default="rtabmap.db"/>
     <arg name="model" default="$(find wheelchair_description)/urdf/wheelchair_model_tof7.urdf"/>
+    <arg name="move_forward_only" default="false"/>
 
     <arg     if="$(arg localization)" name="rtabmap_args"  default=""/>
     <arg unless="$(arg localization)" name="rtabmap_args"  default="--delete_db_on_start"/>
