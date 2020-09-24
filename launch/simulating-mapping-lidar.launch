@@ -7,7 +7,7 @@
          manager of the camera to avoid topic serialization -->
     <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync" output="screen">
       <remap from="rgb/image"       to="/wheelchair_robot/left_camera/image_raw"/>
-      <remap from="depth/image"     to="/wheelchair_robot/depth_camera/color/image_raw"/>
+      <remap from="depth/image"     to="/wheelchair_robot/depth_camera/depth/image_raw"/>
       <remap from="rgb/camera_info" to="/wheelchair_robot/left_camera/camera_info"/>
       <remap from="rgbd_image"      to="rgbd_image"/> <!-- output -->
       
