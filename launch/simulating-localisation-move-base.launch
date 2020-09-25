@@ -12,7 +12,7 @@
     <arg name="wait_for_transform"  default="0.2"/> 
 
     <!-- move_base -->
-    <include file="$(find wheelchair_navigation)/launch/includes/move_base.launch.xml"/>
+    <include file="$(find wheelchair_navigation)/launch/includes/move_base.launch"/>
   <include file="$(find wheelchair_control)/launch/move_base.launch">
     <arg name="move_forward_only" value="$(arg move_forward_only)"/>
   </include>
