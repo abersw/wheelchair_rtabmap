@@ -29,7 +29,7 @@
 
           <param name="queue_size" type="int" value="10000"/>
 
-          <remap from="rtabmap/proj_map" to="/map"/>
+          <remap from="proj_map" to="/map"/>
 
           <!-- RTAB-Map's parameters -->
           <param name="RGBD/NeighborLinkRefining" type="string" value="true"/>
