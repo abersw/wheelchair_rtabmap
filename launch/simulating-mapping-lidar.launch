@@ -29,6 +29,8 @@
 
           <param name="queue_size" type="int" value="10000"/>
 
+          <remap from="grid_map" to="/map"/>
+
           <!-- RTAB-Map's parameters -->
           <param name="RGBD/NeighborLinkRefining" type="string" value="true"/>
           <param name="RGBD/ProximityBySpace"     type="string" value="true"/>

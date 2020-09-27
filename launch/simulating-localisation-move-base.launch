@@ -1,8 +1,8 @@
 <launch>
   <group ns="rtabmap">
 
-    <arg name="localization" value="false"/>
-    <arg name="simulation"        default="false"/>
+    <arg name="localization" value="true"/>
+    <arg name="simulation"        default="true"/>
     <arg name="database_path"     default="rtabmap.db"/> 
     <arg name="move_forward_only" default="false"/>
 
@@ -12,10 +12,8 @@
     <arg name="wait_for_transform"  default="0.2"/> 
 
     <!-- move_base -->
-    <include file="$(find wheelchair_navigation)/launch/includes/move_base.launch.xml"/>
-  <include file="$(find wheelchair_control)/launch/move_base.launch">
-    <arg name="move_forward_only" value="$(arg move_forward_only)"/>
-  </include>
+    <include file="$(find wheelchair_navigation)/launch/move_base.launch"/>
+    </include>
 
     <!-- Use RGBD synchronization -->
     <!-- Here is a general example using a standalone nodelet, 
