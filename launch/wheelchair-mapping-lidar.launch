@@ -1,6 +1,20 @@
 <launch>
   <group ns="rtabmap">
 
+    <arg name="localization" value="true"/>
+    <arg name="simulation"        default="true"/>
+    <arg name="database_path"     default="rtabmap.db"/> 
+    <arg name="move_forward_only" default="false"/>
+
+    <arg     if="$(arg localization)" name="args"  default=""/>
+    <arg unless="$(arg localization)" name="args"  default="--delete_db_on_start"/>
+
+    <arg name="wait_for_transform"  default="0.2"/> 
+
+    <!-- move_base -->
+    <include file="$(find wheelchair_navigation)/launch/move_base.launch"/>
+    </include>
+
     <!-- Use RGBD synchronization -->
     <!-- Here is a general example using a standalone nodelet, 
          but it is recommended to attach this nodelet to nodelet 
@@ -16,7 +30,14 @@
       <param name="approx_sync"       value="true"/> 
     </node>
 
-    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
+    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="">
+
+          <remap from="grid_map" to="/map"/>
+
+          <!-- When sending goals on /rtabmap/goal topic, use actionlib to communicate with move_base --> 
+	        <param name="use_action_for_goal" type="bool" value="true"/>
+          <remap from="move_base"            to="/move_base"/>
+
           <param name="frame_id" type="string" value="base_footprint"/>
 
           <param name="subscribe_depth" type="bool" value="false"/>
@@ -24,7 +45,7 @@
           <param name="subscribe_scan" type="bool" value="true"/>
 
           <remap from="odom" to="/zed_node/odom"/>
-          <remap from="scan" to="/scan"/>
+          <remap from="scan" to="/scan_filtered"/>
           <remap from="rgbd_image" to="rgbd_image"/>
 
           <param name="queue_size" type="int" value="10000"/>
@@ -42,6 +63,11 @@
           <!-- ICP parameters -->
           <param name="Icp/VoxelSize"                 type="string" value="0.05"/>
           <param name="Icp/MaxCorrespondenceDistance" type="string" value="0.1"/>
+
+          <!-- localization mode -->
+          <param     if="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="false"/>
+          <param unless="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="true"/>
+          <param name="Mem/InitWMWithAllNodes" type="string" value="$(arg localization)"/> 
     </node>
   </group>
 </launch>
