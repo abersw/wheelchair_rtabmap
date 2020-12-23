@@ -14,6 +14,7 @@
       <!-- Should be true for not synchronized camera topics 
            (e.g., false for kinectv2, zed, realsense, true for xtion, kinect360)-->
       <param name="approx_sync"       value="true"/> 
+      <param name="queue_size" type="int" value="20"/>
     </node>
 
     <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="">
@@ -27,7 +28,7 @@
           <remap from="scan" to="/scan_filtered"/>
           <remap from="rgbd_image" to="rgbd_image"/>
 
-          <param name="queue_size" type="int" value="10000"/>
+          <param name="queue_size" type="int" value="20"/>
 
           <remap from="grid_map" to="/map"/>
 
