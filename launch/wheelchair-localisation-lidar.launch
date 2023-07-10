@@ -3,7 +3,7 @@
 
   <group ns="rtabmap">
     <!-- RGB-D Odometry -->
-    <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync" output="screen">
+    <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_sync/rgbd_sync" output="screen">
         <remap from="rgb/image"       to="/zed/zed_node/rgb/image_rect_color" unless="$(arg wheelchair_sim)"/>
         <remap from="depth/image"     to="/zed/zed_node/depth/depth_registered" unless="$(arg wheelchair_sim)"/>
         <remap from="rgb/camera_info" to="/zed/zed_node/rgb/camera_info" unless="$(arg wheelchair_sim)"/>
@@ -19,7 +19,7 @@
       <param name="queue_size" type="int" value="20"/>
     </node>
 
-    <node pkg="rtabmap_ros" type="rtabmap" name="rtabmap" args="" output="log">
+    <node pkg="rtabmap_slam" type="rtabmap" name="rtabmap" args="" output="log">
         <param name="Mem/IncrementalMemory" type="string" value="false"/>
         <param name="Mem/InitWMWithAllNodes" type="string" value="true"/>
 
